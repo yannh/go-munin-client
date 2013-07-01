@@ -150,13 +150,12 @@ func (n *Client) FetchAllPlugins(outputChannel chan<- map[string]string, errorCh
 	pluginList, err := n.getPluginList()
 	if err != nil {
 		errorChannel <- err
-		runtime.Goexit()
+		return
 	}
 
 	for _, plugin := range pluginList {
 		if err := n.FetchPlugin(plugin, outputChannel, errorChannel); err != nil {
 			errorChannel <- err
-			runtime.Goexit()
 		}
 	}
 }
